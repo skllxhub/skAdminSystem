@@ -21,8 +21,8 @@ new Float:X, Float:Y, Float:Z;
 public OnFilterScriptInit()
 {
 	print("\n---------------------------------------");
-	print("skAdmin - Admin system - skllx			");
-	print("Primeira versão - Básico			   	    ");
+	print("skAdmin - Admin system - skllx		");
+	print("Primeira versão - Básico			");
 	print("---------------------------------------\n");
 	return 1;
 }
