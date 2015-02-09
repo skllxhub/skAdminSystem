@@ -41,7 +41,7 @@ public OnPlayerConnect(playerid)
 	{
 		if(DOF2_GetInt(skFile, "Banido") == 1)
 		{
-		    SendClientMessage(playerid, COR_ERRO, "[skAdmins] Você está banido(a) e não pode ter acesso ao servidor!");
+			SendClientMessage(playerid, COR_ERRO, "[skAdmins] Você está banido(a) e não pode ter acesso ao servidor!");
 			SetTimerEx("KickP", 500, false, "i", playerid);
 			return 1;
 		}
@@ -66,20 +66,20 @@ public OnPlayerSpawn(playerid)
 
 CMD:daradmin(playerid, params[])
 {
-    if(skAdmin[playerid] < 2 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
-    new ID, skNivel, skAntes, String[120];
-    if(sscanf(params, "id", ID, skNivel)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /DarAdmin [ID] [0-2]");
-    if(!IsPlayerConnected(ID)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
+	if(skAdmin[playerid] < 2 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+    	new ID, skNivel, skAntes, String[120];
+    	if(sscanf(params, "id", ID, skNivel)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /DarAdmin [ID] [0-2]");
+	if(!IsPlayerConnected(ID)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
 	if(skNivel < 0 || skAntes > 2) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Nível não existente!");
 	skAntes = skAdmin[ID];
-    skAdmin[ID] = skNivel;
-    if(skNivel > skAntes)
-    {
-        format(String, sizeof(String), "[skAdmins] Parabéns, você foi promovido(a) à administrador(a) nível {FFFFFF}%d", skAdmin[ID]);
+	skAdmin[ID] = skNivel;
+	if(skNivel > skAntes)
+	{
+		format(String, sizeof(String), "[skAdmins] Parabéns, você foi promovido(a) à administrador(a) nível {FFFFFF}%d", skAdmin[ID]);
 		SendClientMessage(ID, COR_AZUL, String);
 		SetPlayerChatBubble(ID, "Administrador", 0x1E90FFFF, 20.0, 10000);
 	}else{
-        format(String, sizeof(String), "[skAdmins] Você foi rebaixado(a) à administrador(a) nível {FFFFFF}%d", skAdmin[ID]);
+		format(String, sizeof(String), "[skAdmins] Você foi rebaixado(a) à administrador(a) nível {FFFFFF}%d", skAdmin[ID]);
 		SendClientMessage(ID, COR_ERRO, String);
 		SetPlayerChatBubble(ID, " ", 0xFFFFFFAA, 20.0, 10000);
 	}
@@ -92,8 +92,8 @@ CMD:daradmin(playerid, params[])
 
 CMD:fakeban(playerid, params[])
 {
-    if(skAdmin[playerid] < 2 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
-    new ID, Motivo[80], String[128];
+	if(skAdmin[playerid] < 2 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+	new ID, Motivo[80], String[128];
 	if(sscanf(params, "ds[80]", ID, Motivo)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /FakeBan [ID] [Motivo]");
 	if(!IsPlayerConnected(ID)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
 	format(String, sizeof(String),"[skAdmins] %s baniu o(a) jogador(a) %s [Motivo: %s]", skNome(playerid), skNome(ID), Motivo);
@@ -105,8 +105,8 @@ CMD:fakeban(playerid, params[])
 
 CMD:fakekick(playerid, params[])
 {
-    if(skAdmin[playerid] < 2 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
-    new ID, Motivo[80], String[128];
+        if(skAdmin[playerid] < 2 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+        new ID, Motivo[80], String[128];
 	if(sscanf(params, "ds[80]", ID, Motivo)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /FakeKick [ID] [Motivo]");
 	if(!IsPlayerConnected(ID)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
 	format(String, sizeof(String),"[skAdmins] %s kickou o(a) jogador(a) %s [Motivo %s]", skNome(playerid), skNome(ID), Motivo);
@@ -117,31 +117,30 @@ CMD:fakekick(playerid, params[])
 
 CMD:fakechat(playerid, params[])
 {
-    if(skAdmin[playerid] < 2 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
-    new ID, NomeID[24], String[256], Mensagem[256];
-    if(sscanf(params, "ds[256]", ID, Mensagem)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /FakeChat [ID] [Mensagem]");
-    if(!IsPlayerConnected(ID)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
-    GetPlayerName(ID, NomeID, MAX_PLAYER_NAME);
-    format(String, sizeof(String), "{%06x}%s: {FFFFFF}%s", GetPlayerColor(ID) >>> 8, NomeID, Mensagem); // As cores podem bugar.
-    SendClientMessageToAll(-1, String);
-    return 1;
+	if(skAdmin[playerid] < 2 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+	new ID, NomeID[24], String[256], Mensagem[256];
+	if(sscanf(params, "ds[256]", ID, Mensagem)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /FakeChat [ID] [Mensagem]");
+	if(!IsPlayerConnected(ID)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
+	GetPlayerName(ID, NomeID, MAX_PLAYER_NAME);
+	format(String, sizeof(String), "{%06x}%s: {FFFFFF}%s", GetPlayerColor(ID) >>> 8, NomeID, Mensagem); // As cores podem bugar.
+	SendClientMessageToAll(-1, String);
+	return 1;
 }
 
 CMD:fakecmd(playerid,params[])
 {
-    if(skAdmin[playerid] < 2 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
-    new ID, Cmd[256];
-    if(sscanf (params, "us[256]", ID, Cmd))
-    return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /FakeCmd [ID] [Comando]");
-    if(!IsPlayerConnected(ID)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!.");
-    CallRemoteFunction("OnPlayerCommandText", "ds", ID, Cmd);
-    return 1;
+	if(skAdmin[playerid] < 2 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+	new ID, Cmd[256];
+	if(sscanf (params, "us[256]", ID, Cmd)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /FakeCmd [ID] [Comando]");
+	if(!IsPlayerConnected(ID)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!.");
+	CallRemoteFunction("OnPlayerCommandText", "ds", ID, Cmd);
+	return 1;
 }
 
 CMD:banir(playerid, params[])
 {
-    if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
-    new ID, Motivo[80], String[128], IP[20];
+    	if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+    	new ID, Motivo[80], String[128], IP[20];
 	if(sscanf(params, "ds[80]s[100]", ID, Motivo)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /Banir [ID] [Motivo]");
 	if(!IsPlayerConnected(ID)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
 	if(skAdmin[ID] > skAdmin[playerid])
@@ -165,8 +164,8 @@ CMD:banir(playerid, params[])
 
 CMD:kick(playerid, params[])
 {
-    if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
-    new ID, Motivo[80], String[128];
+    	if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+    	new ID, Motivo[80], String[128];
 	if(sscanf(params, "ds[80]s[100]", ID, Motivo)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /Kick [ID] [Motivo]");
 	if(!IsPlayerConnected(ID)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
 	if(skAdmin[ID] > skAdmin[playerid])
@@ -184,7 +183,7 @@ CMD:kick(playerid, params[])
 
 CMD:desarmar(playerid, params[])
 {
-    if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+    	if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
 	if(!strlen(params) || !IsNum(params)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /Desarmar [ID]");
 	if(!IsPlayerConnected(strval(params))) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
 	ResetPlayerWeapons(strval(params));
@@ -197,7 +196,7 @@ CMD:desarmar(playerid, params[])
 
 CMD:explodir(playerid, params[])
 {
-    if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+    	if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
 	if(!strlen(params) || !IsNum(params)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /Explodir [ID]");
 	if(!IsPlayerConnected(strval(params))) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
 	GetPlayerPos(strval(params), X, Y, Z);
@@ -211,7 +210,7 @@ CMD:explodir(playerid, params[])
 
 CMD:trazer(playerid, params[])
 {
-    if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+    	if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
 	if(!strlen(params) || !IsNum(params)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /Trazer [ID]");
 	if(!IsPlayerConnected(strval(params))) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
 	GetPlayerPos(playerid, X, Y, Z);
@@ -225,7 +224,7 @@ CMD:trazer(playerid, params[])
 
 CMD:setarpontos(playerid, params[])
 {
-    if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+    	if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
 	new ID, Pontos;
 	if(sscanf(params, "id", ID, Pontos)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /SetarPontos [ID] [Pontos]");
  	if(!IsPlayerConnected(ID)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
@@ -243,7 +242,7 @@ CMD:setarpontos(playerid, params[])
 
 CMD:darpontos(playerid, params[])
 {
-    if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+    	if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
 	new ID, Pontos;
 	if(sscanf(params, "id", ID, Pontos)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /DarPontos [ID] [Pontos]");
  	if(!IsPlayerConnected(ID)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Não há nenhum(a) jogador(a) com esse ID!");
@@ -261,7 +260,7 @@ CMD:darpontos(playerid, params[])
 
 CMD:dartpontos(playerid, params[])
 {
-    if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+    	if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
 	if(!strlen(params) || !IsNum(params)) return SendClientMessage(playerid, COR_AZUL, "[skAdmins] /dartpontos [Pontos]");
 	for(new i = 0; i < MAX_PLAYERS; i++)
 	{
@@ -281,7 +280,7 @@ CMD:dartpontos(playerid, params[])
 
 CMD:tdesarmar(playerid)
 {
-    if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
+    	if(skAdmin[playerid] < 1 && !IsPlayerAdmin(playerid)) return SendClientMessage(playerid, COR_ERRO, "[ERRO] Você não tem permissão!");
 	for(new i = 0; i < MAX_PLAYERS; i++)
 	{
 	    if(IsPlayerConnected(i))
@@ -319,21 +318,21 @@ CMD:acmds(playerid)
 {
 	if(skAdmin[playerid] > 0)
  	{
-	    new cmdString[500], admString[500];
-    	format(admString, sizeof(admString), "{1E90FF}Comandos para administradores nível 1:{FFFFFF}");
-	    strcat(cmdString, admString);
-	    format(admString, sizeof(admString), "\n/Kick, /Ban, /Ir, /Trazer, /Avisar, /Espiar, /An, /Explodir, /Tapa, /tDesarmar");
-	    strcat(cmdString, admString);
-	    format(admString, sizeof(admString), "\n/Desarmar, /DarPontos, /DarTPontos, /SetarPontos");
-	    strcat(cmdString, admString);
-	    if(skAdmin[playerid] > 1)
-    	{
-  			format(admString, sizeof(admString), "\n\n{1E90FF}Comandos para administradores nível 2:{FFFFFF}");
-	    	strcat(cmdString, admString);
-  			format(admString, sizeof(admString), "\n/DarAdmin, /FakeCMD, /FakeChat, /FakeBan, /FakeKick");
-	    	strcat(cmdString, admString);
+		new cmdString[500], admString[500];
+    		format(admString, sizeof(admString), "{1E90FF}Comandos para administradores nível 1:{FFFFFF}");
+		strcat(cmdString, admString);
+		format(admString, sizeof(admString), "\n/Kick, /Ban, /Ir, /Trazer, /Avisar, /Espiar, /An, /Explodir, /Tapa, /tDesarmar");
+		strcat(cmdString, admString);
+		format(admString, sizeof(admString), "\n/Desarmar, /DarPontos, /DarTPontos, /SetarPontos");
+		strcat(cmdString, admString);
+		if(skAdmin[playerid] > 1)
+	    	{
+	  		format(admString, sizeof(admString), "\n\n{1E90FF}Comandos para administradores nível 2:{FFFFFF}");
+		    	strcat(cmdString, admString);
+	  		format(admString, sizeof(admString), "\n/DarAdmin, /FakeCMD, /FakeChat, /FakeBan, /FakeKick");
+		    	strcat(cmdString, admString);
 		}
-	    ShowPlayerDialog(playerid, skAMenu, DIALOG_STYLE_MSGBOX, "[skAdmins] Comandos administrativos", cmdString, "Fechar", "");
+	    	ShowPlayerDialog(playerid, skAMenu, DIALOG_STYLE_MSGBOX, "[skAdmins] Comandos administrativos", cmdString, "Fechar", "");
 	}
 	return 1;
 }
